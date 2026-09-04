@@ -1,0 +1,61 @@
+{
+  "comment": "硬规则词表回归：违禁表述(banned_phrases)、必备要素缺失(required_elements)、阈值(thresholds)。这些由 hard_check 代码判定，track=hard。",
+  "cases": [
+    {
+      "name": "正例-违禁表述“最终解释权归”应命中",
+      "rule_id": "R-BREACH-01",
+      "track": "hard",
+      "expect_hit": true,
+      "text": "第十六条 本合同最终解释权归甲方所有，乙方不得异议。"
+    },
+    {
+      "name": "正例-违禁表述“概不负责”应命中",
+      "rule_id": "R-BREACH-01",
+      "track": "hard",
+      "expect_hit": true,
+      "text": "乙方在使用过程中发生的任何损失，甲方概不负责。"
+    },
+    {
+      "name": "反例-对等违约表述不应命中违禁词",
+      "rule_id": "R-BREACH-01",
+      "track": "hard",
+      "expect_hit": false,
+      "text": "第十条 任何一方违约，应按本合同约定向守约方支付违约金并赔偿实际损失。"
+    },
+    {
+      "name": "正例-缺少验收条款应命中必备要素缺失",
+      "rule_id": "R-DELIV-01",
+      "track": "hard",
+      "expect_hit": true,
+      "text": "采购合同。甲方（买方）与乙方（卖方）约定价款人民币壹拾万元，乙方交付货物，甲方付款。双方发生争议提交法院诉讼解决。"
+    },
+    {
+      "name": "反例-含验收约定不应报验收要素缺失",
+      "rule_id": "R-DELIV-01",
+      "track": "hard",
+      "expect_hit": false,
+      "text": "第五条 交付与验收：乙方于6月1日前交货，甲方在收货后7日内按国标验收，验收合格签署验收单，不合格的乙方限期更换。"
+    },
+    {
+      "name": "正例-付款账期90天超阈值应命中",
+      "rule_id": "R-PAY-01",
+      "track": "hard",
+      "expect_hit": true,
+      "text": "第六条 付款方式：甲方在收到乙方发票后90日内支付全部合同价款。"
+    },
+    {
+      "name": "反例-付款账期30天不应命中阈值",
+      "rule_id": "R-PAY-01",
+      "track": "hard",
+      "expect_hit": false,
+      "text": "第六条 付款方式：甲方在验收合格且收到发票后30日内支付合同价款。"
+    },
+    {
+      "name": "正例-预付款80%超阈值应命中",
+      "rule_id": "R-PAY-01",
+      "track": "hard",
+      "expect_hit": true,
+      "text": "合同签订后甲方支付预付款80%，余款于交付后付清。"
+    }
+  ]
+}
