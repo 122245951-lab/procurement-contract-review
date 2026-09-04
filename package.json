@@ -1,0 +1,19 @@
+{
+  "name": "procurement-contract-review",
+  "version": "1.0.0",
+  "description": "规则驱动、可插拔规则包的采购合同签约前风险审核 Skill：代码硬规则零漏报 + LLM 语义规则，输出可溯源、可逐条接受/拒绝的交互式 HTML 报告。",
+  "main": "scripts/contract_review.py",
+  "type": "skill",
+  "scripts": {
+    "lint": "python scripts/validate_rules.py --pack \"rules-pack-企业采购合同\" --lint",
+    "test": "python scripts/validate_rules.py --pack \"rules-pack-企业采购合同\" --test",
+    "demo": "python scripts/contract_review.py examples/demo-contract.txt --pack \"rules-pack-企业采购合同\" --out examples/demo-report.html"
+  },
+  "keywords": ["合同审核", "采购", "法务", "合规", "规则引擎", "风险审查"],
+  "author": "孙嘉隆",
+  "license": "MIT",
+  "runtime": {
+    "python": ">=3.8",
+    "dependencies": "标准库（docx 解析使用标准库 zipfile+xml，无需第三方包）"
+  }
+}
