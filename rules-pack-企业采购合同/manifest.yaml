@@ -1,0 +1,105 @@
+# 规则包清单（规则包即文件夹；引擎每次审核前重新扫描，改完即时生效）
+pack:
+  id: rules-pack-procurement-cn
+  name: 企业采购合同风险审查规则包
+  version: 1.0.0
+  effective_date: 2026-09-04
+  scope: 企业采购合同签约前风险审核（货物采购 / 软件与系统开发 / 服务外包 / 工程建设）
+  language: zh-CN
+  maintainer: 法务/合规（业务人员可在线维护）
+  source: 原创泛行业规则设计；法规援引以现行有效法律为准，失效法规清单见 hard_terms.json
+  disclaimer: >-
+    本规则包输出为风险提示与修改建议，不构成法律意见，不替代律师/法务最终判断；
+    阈值默认值仅为行业常见参考，企业应按自身采购政策调整。
+
+# 判定方式：hard_match / value_check 走代码（零漏报）；rule_check / semantic 走 LLM
+rules:
+  - id: R-LEGAL-01
+    name: 援引法规有效性
+    judge: hard_match
+    severity: 高
+    status: active
+    hidden: true            # 隐性规则：未命中不展示，命中置顶
+    file: rules/R-LEGAL-01.md
+  - id: R-PARTY-01
+    name: 主体与签约资格
+    judge: rule_check
+    severity: 中
+    status: active
+    hidden: false
+    file: rules/R-PARTY-01.md
+  - id: R-PAY-01
+    name: 价款与支付安排
+    judge: rule_check
+    severity: 高
+    status: active
+    hidden: false
+    file: rules/R-PAY-01.md
+  - id: R-PAY-02
+    name: 费用与调价
+    judge: semantic
+    severity: 中
+    status: active
+    hidden: false
+    file: rules/R-PAY-02.md
+  - id: R-DELIV-01
+    name: 交付与验收
+    judge: rule_check
+    severity: 高
+    status: active
+    hidden: false
+    file: rules/R-DELIV-01.md
+  - id: R-WARR-01
+    name: 质量保证与售后
+    judge: rule_check
+    severity: 中
+    status: active
+    hidden: false
+    file: rules/R-WARR-01.md
+  - id: R-BREACH-01
+    name: 违约责任与救济
+    judge: semantic
+    severity: 高
+    status: active
+    hidden: false
+    file: rules/R-BREACH-01.md
+  - id: R-BREACH-02
+    name: 不可抗力与免责
+    judge: rule_check
+    severity: 中
+    status: active
+    hidden: false
+    file: rules/R-BREACH-02.md
+  - id: R-IP-01
+    name: 成果与知识产权归属
+    judge: semantic
+    severity: 高
+    status: active
+    hidden: false
+    file: rules/R-IP-01.md
+  - id: R-DATA-01
+    name: 保密与数据安全
+    judge: semantic
+    severity: 高
+    status: active
+    hidden: false
+    file: rules/R-DATA-01.md
+  - id: R-TERM-01
+    name: 期限、变更与解除
+    judge: rule_check
+    severity: 中
+    status: active
+    hidden: false
+    file: rules/R-TERM-01.md
+  - id: R-DISP-01
+    name: 争议解决与送达
+    judge: semantic
+    severity: 中
+    status: active
+    hidden: false
+    file: rules/R-DISP-01.md
+
+changelog:
+  - version: 1.0.0
+    date: 2026-09-04
+    note: 首发。12 条规则覆盖交易全生命周期六组（法规/主体/价款/交付验收/质保/违约/不可抗力/知产/数据/期限/争议）；含失效法规硬规则词表与原创回归测试集。
